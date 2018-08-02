@@ -1,0 +1,23 @@
+{
+  "name": "snake",
+  "version": "0.1.0",
+  "description": "A snake IO game prototype.",
+  "main": "index.js",
+  "scripts": {
+    "test": "//"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andr3wRiv3rs/snake.git"
+  },
+  "author": "Andrew Rivers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Andr3wRiv3rs/snake/issues"
+  },
+  "homepage": "https://github.com/Andr3wRiv3rs/snake#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  }
+}

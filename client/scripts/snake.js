@@ -1,4 +1,4 @@
-let updateSnake = (x,y,direction,units,cols) => {
+let updateSnake = (x,y,direction,units,player) => {
     let directions = {
         up: [0,-1],
         down: [0,1],
@@ -11,20 +11,22 @@ let updateSnake = (x,y,direction,units,cols) => {
     let dw = ['up','down','left','right'];
     
     // Update units
-    if(cols){
-        units.splice(units.length-1,1);
-        units.reverse();
-        units.push(direction);
-        units.reverse();
-    }
+
+    units.splice(units.length-1,1);
+    units.reverse();
+    units.push(direction);
+    units.reverse();
 
     // Find coordinates
-
 
     let m = directions[dw[direction]];
 
     let cors = [];
-    let pos = [x+m[0],y+m[1]];
+    let pos = [x,y];
+
+    if(!player){
+        pos = [x+m[0],y+m[1]];
+    }
 
     for (let i in units) {
         let d = directions[dw[units[i]]];
@@ -35,26 +37,28 @@ let updateSnake = (x,y,direction,units,cols) => {
         pos[1] = pos[1] - d[1];
     };
 
-    // Test collision
+    return {
+        x: x+m[0],
+        y: y+m[1],
+        units: units,
+        cors: cors
+    }
+};
 
-    if(cols){
-        for(let i in cors){
-            for(let z in cols){
-                if(cors[i][0]==cols[z][0] && cors[i][1]==cols[z][1]){
-                    collision = [true,false];
-                    if(i==0){
-                        collision = [true,true];
-                    }
+// Test collision.
+
+let snakeCollide = (cors,cols) => {
+    let collision = [false,false];
+    for(let i in cors){
+        for(let z in cols){
+            if(cors[i][0]==cols[z][0] && cors[i][1]==cols[z][1]){
+                collision = [true,false];
+                if(i==0){
+                    collision = [true,true];
                 }
             }
         }
     }
 
-    return {
-        x: x+m[0],
-        y: y+m[1],
-        units: units,
-        cors: cors,
-        collision: collision
-    }
+    return collision;
 };
